@@ -1,1 +1,22 @@
 <p>products works!</p>
+
+<table class="table table-dark table-striped">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Valor</th>
+            <th scope="col">Cantidad</th>
+            <th scope="col">Porcentaje IVA</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let product of listProducts">
+            <td>{{ product.id }}</td>
+            <td>{{ product.nombre }}</td>
+            <td>{{ product.valorVentaConIva }}</td>
+            <td>{{ product.cantidadUnidadesInventario }}</td>
+            <td>{{ product.porcentajeIVAAplicado }}</td>
+        </tr>
+    </tbody>
+</table>
