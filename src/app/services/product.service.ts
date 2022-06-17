@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { Product } from '../interfaces/product';
 
 @Injectable({
@@ -16,6 +16,7 @@ export class ProductService {
   
   getProducts(): Observable<Product[]> {
     return this.http.get<Product[]>(this.urlApiProducts);
+    // return Observable.of(TestData.products)
   }
   
 }
