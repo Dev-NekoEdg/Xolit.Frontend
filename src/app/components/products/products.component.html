@@ -1,22 +1,37 @@
 <p>products works!</p>
-
-<table class="table table-dark table-striped">
-    <thead>
-        <tr>
-            <th scope="col">#</th>
-            <th scope="col">Nombre</th>
-            <th scope="col">Valor</th>
-            <th scope="col">Cantidad</th>
-            <th scope="col">Porcentaje IVA</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let product of listProducts">
-            <td>{{ product.id }}</td>
-            <td>{{ product.nombre }}</td>
-            <td>{{ product.valorVentaConIva }}</td>
-            <td>{{ product.cantidadUnidadesInventario }}</td>
-            <td>{{ product.porcentajeIVAAplicado }}</td>
-        </tr>
-    </tbody>
-</table>
+<!-- Basic view -->
+<!--
+    <table class="table table-dark table-striped">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Valor</th>
+                <th scope="col">Cantidad</th>
+                <th scope="col">Porcentaje IVA</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let product of listProducts">
+                <td>{{ product.id }}</td>
+                <td>{{ product.nombre }}</td>
+                <td>{{ product.valorVentaConIva }}</td>
+                <td>{{ product.cantidadUnidadesInventario }}</td>
+                <td>{{ product.porcentajeIVAAplicado }}</td>
+            </tr>
+        </tbody>
+    </table>
+-->
+<div class="card-group">
+    <div class="card m-2 border-dark" *ngFor="let product of listProducts" style="max-width: 18rem;">
+        <img src="../../../assets/usuario.png" class="card-img-top" alt="pruebas">
+        <div class="card-body">
+            <h5 class="card-title">{{ product.nombre }}</h5>
+            <p class="card-text">
+                Precio : {{ product.valorVentaConIva }}
+            </p>
+            <button class="btn btn-outline-primary" ngClick="addProduct()">Comprar</button>
+        </div>
+    </div>
+    
+</div>

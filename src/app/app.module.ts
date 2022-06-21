@@ -8,6 +8,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { HomeComponent } from './components/home/home.component';
 import { MenuComponent } from './shared/menu/menu.component';
 import { ProductsComponent } from './components/products/products.component';
+import { TestData } from './services/testData';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,7 @@ import { ProductsComponent } from './components/products/products.component';
     AppRoutingModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [TestData],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

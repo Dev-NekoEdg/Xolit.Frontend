@@ -24,5 +24,7 @@ export class ProductsComponent implements OnInit {
                 .subscribe((data) => this.listProducts = data );
   }
 
-
+  addProduct(): void {
+    alert('Se guardo');
+  }
 }

@@ -3,6 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { Product } from '../interfaces/product';
 
+import {TestData} from '../services/testData';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -15,8 +17,14 @@ export class ProductService {
   ) { }
   
   getProducts(): Observable<Product[]> {
-    return this.http.get<Product[]>(this.urlApiProducts);
-    // return Observable.of(TestData.products)
+    //return this.http.get<Product[]>(this.urlApiProducts);
+    const studentsObservable = new Observable<Product[]>(observer => {
+      setTimeout(() => {
+          observer.next(TestData.products);
+      }, 1000);
+    });
+    
+    return studentsObservable;
   }
   
 }
