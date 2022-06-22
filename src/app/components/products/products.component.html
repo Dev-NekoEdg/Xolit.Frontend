@@ -22,15 +22,15 @@
         </tbody>
     </table>
 -->
-<div class="card-group">
-    <div class="card m-2 border-dark" *ngFor="let product of listProducts" style="max-width: 18rem;">
+<div class="row row-cols-1 row-cols-md-2 g-4">
+    <div class="card md-2 g-4 border-dark" *ngFor="let product of listProducts" style="max-width: 18rem;">
         <img src="../../../assets/usuario.png" class="card-img-top" alt="pruebas">
         <div class="card-body">
             <h5 class="card-title">{{ product.nombre }}</h5>
             <p class="card-text">
                 Precio : {{ product.valorVentaConIva }}
             </p>
-            <button class="btn btn-outline-primary" ngClick="addProduct()">Comprar</button>
+            <button class="btn btn-outline-primary" (click)="addProduct()">Comprar</button>
         </div>
     </div>
     

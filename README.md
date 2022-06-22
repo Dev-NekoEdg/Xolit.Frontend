@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # XolitShoppingCart
 
 
@@ -33,8 +32,6 @@ export class AppModule { }
     return studentsObservable;
   }
 ´
-
-
 #### Localstorage vs SessionStorage 
 
 localStorage y sessionStorage son propiedades que acceden al objeto Storage y tienen la función de almacenar datos de manera local, la diferencia entre éstas dos es que localStorage almacena la información de forma indefinida o hasta que se decida limpiar los datos del navegador y sessionStorage almacena información mientras la pestaña donde se esté utilizando siga abierta, una vez cerrada, la información se elimina.
@@ -47,4 +44,3 @@ localStorage y sessionStorage son propiedades que acceden al objeto Storage y ti
 =======
 # Xolit.Frontend
 Frontend for Shopping Cart Xolit
->>>>>>> efe9a1cad34359b67c458d5c8fbb11f21a86999e
