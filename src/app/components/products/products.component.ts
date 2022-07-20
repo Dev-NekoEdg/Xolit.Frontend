@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Product } from 'src/app/interfaces/product';
 import { ProductService } from 'src/app/services/product.service';
+import { AddShoppingCartComponent } from '../add-shopping-cart/add-shopping-cart.component';
 
 @Component({
   selector: 'app-products',
@@ -11,7 +13,8 @@ export class ProductsComponent implements OnInit {
 
   public listProducts: Product[];
   constructor(
-    private service: ProductService
+    private service: ProductService,
+    private modalService: NgbModal
   ) { }
 
   ngOnInit(): void {
@@ -24,7 +27,9 @@ export class ProductsComponent implements OnInit {
                 .subscribe((data) => this.listProducts = data );
   }
 
-  addProduct(): void {
-    alert('Se guardo');
+  addProduct(currentProduct: Product): void {
+    //alert('Se guardo');
+    const modalRef = this.modalService.open(AddShoppingCartComponent);
+    modalRef.componentInstance.product = currentProduct;
   }
 }

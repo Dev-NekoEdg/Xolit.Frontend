@@ -1,6 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Product } from 'src/app/interfaces/product';
 import { ShoppingCart } from 'src/app/interfaces/shopping-cart';
+
+
 
 @Component({
   selector: 'app-add-shopping-cart',
@@ -13,11 +16,13 @@ export class AddShoppingCartComponent implements OnInit {
   @Input() product: Product;
 
   public shoppingCartStorage: ShoppingCart;
-  constructor() {
-    this.loadShoppingCart()
+  constructor(public activeModal: NgbActiveModal) {
   }
 
   ngOnInit(): void {
+    this.shoppingCartStorage = this.emptyShoppingCart();
+    console.log(this.product);
+    this.loadShoppingCart()
   }
 
   loadShoppingCart(): void {
@@ -27,5 +32,16 @@ export class AddShoppingCartComponent implements OnInit {
     this.shoppingCartStorage.porcentajeInpuesto = this.product.porcentajeIVAAplicado;
     this.shoppingCartStorage.precioUnitario = this.product.valorVentaConIva;
 
+  }
+
+  emptyShoppingCart(): ShoppingCart {
+    return {
+      productoId: '',
+      nombreProducto: '',
+      precioUnitario: 0,
+      cantidad: 0,
+      precioTotal: 0,
+      porcentajeInpuesto: 0
+    };
   }
 }
