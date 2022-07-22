@@ -10,7 +10,7 @@ import { MenuComponent } from './shared/menu/menu.component';
 import { ProductsComponent } from './components/products/products.component';
 import { TestData } from './services/testData';
 import { AddShoppingCartComponent } from './components/add-shopping-cart/add-shopping-cart.component';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ConstantData } from './services/ConstantData';
 
 @NgModule({
   declarations: [
@@ -23,10 +23,11 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule,
-    NgbModule
+    HttpClientModule
   ],
-  providers: [TestData],
+  providers: [
+    TestData, 
+    ConstantData],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -38,7 +38,12 @@ localStorage y sessionStorage son propiedades que acceden al objeto Storage y ti
 [Fuente](#https://ed.team/blog/que-es-y-como-utilizar-localstorage-y-sessionstorage)
 
 
+##### Modal Angular
+Se intala el ng-bootstrap ´npm install --force @ng-bootstrap/ng-bootstrap´
+guias: 
+https://laratutorials.com/angular-13-bootstrap-modal-popup-example/
 
+[Video](https://www.youtube.com/watch?v=_rMWS4Neckg&t=335s)
 
 
 =======

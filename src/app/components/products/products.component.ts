@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Product } from 'src/app/interfaces/product';
+import { ShoppingCart } from 'src/app/interfaces/shopping-cart';
+import { ConstantData } from 'src/app/services/ConstantData';
 import { ProductService } from 'src/app/services/product.service';
 import { AddShoppingCartComponent } from '../add-shopping-cart/add-shopping-cart.component';
 
@@ -12,10 +13,15 @@ import { AddShoppingCartComponent } from '../add-shopping-cart/add-shopping-cart
 export class ProductsComponent implements OnInit {
 
   public listProducts: Product[];
+  public shoppingCartStorage: ShoppingCart;
+  public aviableAmount: number[];
+  
   constructor(
-    private service: ProductService,
-    private modalService: NgbModal
-  ) { }
+    private service: ProductService
+  ) { 
+    this.shoppingCartStorage = this.emptyShoppingCart();
+    this.aviableAmount = ConstantData.AmountProductAviable;
+  }
 
   ngOnInit(): void {
     this.loadProducts();
@@ -29,7 +35,28 @@ export class ProductsComponent implements OnInit {
 
   addProduct(currentProduct: Product): void {
     //alert('Se guardo');
-    const modalRef = this.modalService.open(AddShoppingCartComponent);
-    modalRef.componentInstance.product = currentProduct;
+    this.loadShoppingCart(currentProduct);
+
   }
+
+  loadShoppingCart(currentProduct: Product): void {
+    this.shoppingCartStorage.productoId = currentProduct.id;
+    this.shoppingCartStorage.nombreProducto = currentProduct.nombre;
+    this.shoppingCartStorage.cantidad = 1;
+    this.shoppingCartStorage.porcentajeInpuesto = currentProduct.porcentajeIVAAplicado;
+    this.shoppingCartStorage.precioUnitario = currentProduct.valorVentaConIva;
+
+  }
+
+  emptyShoppingCart(): ShoppingCart {
+    return {
+      productoId: '',
+      nombreProducto: '',
+      precioUnitario: 0,
+      cantidad: 0,
+      precioTotal: 0,
+      porcentajeInpuesto: 0
+    };
+  }
+
 }

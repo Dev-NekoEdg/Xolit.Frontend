@@ -1,5 +1,4 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Product } from 'src/app/interfaces/product';
 import { ShoppingCart } from 'src/app/interfaces/shopping-cart';
 
@@ -16,7 +15,7 @@ export class AddShoppingCartComponent implements OnInit {
   @Input() product: Product;
 
   public shoppingCartStorage: ShoppingCart;
-  constructor(public activeModal: NgbActiveModal) {
+  constructor() {
   }
 
   ngOnInit(): void {
