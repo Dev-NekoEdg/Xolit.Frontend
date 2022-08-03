@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { Product } from 'src/app/interfaces/product';
 import { ShoppingCart } from 'src/app/interfaces/shopping-cart';
 import { ConstantData } from 'src/app/services/ConstantData';
@@ -15,10 +16,11 @@ export class ProductsComponent implements OnInit {
   public listProducts: Product[];
   public shoppingCartStorage: ShoppingCart;
   public aviableAmount: number[];
-  
+  private nameShoppingCart: string = "shoppinCartXolit";
+
   constructor(
     private service: ProductService
-  ) { 
+  ) {
     this.shoppingCartStorage = this.emptyShoppingCart();
     this.aviableAmount = ConstantData.AmountProductAviable;
   }
@@ -30,11 +32,12 @@ export class ProductsComponent implements OnInit {
 
   loadProducts(): void {
     this.service.getProducts()
-                .subscribe((data) => this.listProducts = data );
+      .subscribe((data) => this.listProducts = data);
   }
 
   addProduct(currentProduct: Product): void {
     //alert('Se guardo');
+    //TODO:  settear el combobox en 0.
     this.loadShoppingCart(currentProduct);
 
   }
@@ -46,6 +49,27 @@ export class ProductsComponent implements OnInit {
     this.shoppingCartStorage.porcentajeInpuesto = currentProduct.porcentajeIVAAplicado;
     this.shoppingCartStorage.precioUnitario = currentProduct.valorVentaConIva;
 
+  }
+
+  submitModal(formulario: NgForm){
+
+  }
+
+  addShoppingCart(currentProduct: ShoppingCart): void {
+    let productStorage: ShoppingCart[] =[];
+    const gotProdutcs = localStorage.getItem(this.nameShoppingCart);
+    console.log(gotProdutcs);
+    if(gotProdutcs !== undefined && gotProdutcs !== ""  && gotProdutcs !== null){
+      productStorage = JSON.parse(gotProdutcs ?? "");
+    }
+
+    productStorage?.push(currentProduct);
+    localStorage.setItem(this.nameShoppingCart, JSON.stringify(productStorage));
+
+    console.log(productStorage);
+
+    // let modal = document.getElementById("staticBackdrop");
+    // modal?.classList.remove("mystyle");
   }
 
   emptyShoppingCart(): ShoppingCart {

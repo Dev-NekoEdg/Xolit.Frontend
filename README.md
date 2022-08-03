@@ -37,6 +37,10 @@ export class AppModule { }
 localStorage y sessionStorage son propiedades que acceden al objeto Storage y tienen la función de almacenar datos de manera local, la diferencia entre éstas dos es que localStorage almacena la información de forma indefinida o hasta que se decida limpiar los datos del navegador y sessionStorage almacena información mientras la pestaña donde se esté utilizando siga abierta, una vez cerrada, la información se elimina.
 [Fuente](#https://ed.team/blog/que-es-y-como-utilizar-localstorage-y-sessionstorage)
 
+#### Formularios pequeños
+
+Siempre que se usen formularios Reactivos y por template, siempre se debe de aggregar el FormsModule en el app.modules:
+´import { FormsModule } from '@angular/forms';´
 
 ##### Modal Angular
 Se intala el ng-bootstrap ´npm install --force @ng-bootstrap/ng-bootstrap´
