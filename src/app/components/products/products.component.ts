@@ -51,18 +51,14 @@ export class ProductsComponent implements OnInit {
 
   }
 
-  submitModal(formulario: NgForm){
-
-  }
-
   addShoppingCart(currentProduct: ShoppingCart): void {
-    let productStorage: ShoppingCart[] =[];
+    let productStorage: ShoppingCart[] = [];
     const gotProdutcs = localStorage.getItem(this.nameShoppingCart);
     console.log(gotProdutcs);
-    if(gotProdutcs !== undefined && gotProdutcs !== ""  && gotProdutcs !== null){
+    if (gotProdutcs !== undefined && gotProdutcs !== "" && gotProdutcs !== null) {
       productStorage = JSON.parse(gotProdutcs ?? "");
     }
-
+    currentProduct.precioTotal = currentProduct.precioUnitario * currentProduct.cantidad;
     productStorage?.push(currentProduct);
     localStorage.setItem(this.nameShoppingCart, JSON.stringify(productStorage));
 

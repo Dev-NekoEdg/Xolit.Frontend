@@ -107,5 +107,8 @@
       }
     }
   },
-  "defaultProject": "XolitShoppingCart"
+  "defaultProject": "XolitShoppingCart",
+  "cli": {
+    "analytics": "293e1380-e8d3-4f05-acb5-c3ccb1cbc95f"
+  }
 }
