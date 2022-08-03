@@ -11,6 +11,7 @@ import { ProductsComponent } from './components/products/products.component';
 import { TestData } from './services/testData';
 import { AddShoppingCartComponent } from './components/add-shopping-cart/add-shopping-cart.component';
 import { ConstantData } from './services/ConstantData';
+import { BuyProdutsComponent } from './components/buy-produts/buy-produts.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { ConstantData } from './services/ConstantData';
     MenuComponent,
     HomeComponent,
     ProductsComponent,
-    AddShoppingCartComponent
+    AddShoppingCartComponent,
+    BuyProdutsComponent
   ],
   imports: [
     BrowserModule,

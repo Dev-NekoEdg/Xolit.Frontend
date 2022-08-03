@@ -16,7 +16,6 @@ export class ProductsComponent implements OnInit {
   public listProducts: Product[];
   public shoppingCartStorage: ShoppingCart;
   public aviableAmount: number[];
-  private nameShoppingCart: string = "shoppinCartXolit";
 
   constructor(
     private service: ProductService
@@ -53,14 +52,14 @@ export class ProductsComponent implements OnInit {
 
   addShoppingCart(currentProduct: ShoppingCart): void {
     let productStorage: ShoppingCart[] = [];
-    const gotProdutcs = localStorage.getItem(this.nameShoppingCart);
+    const gotProdutcs = localStorage.getItem(ConstantData.ShoppingCartLocalStorageKey);
     console.log(gotProdutcs);
     if (gotProdutcs !== undefined && gotProdutcs !== "" && gotProdutcs !== null) {
       productStorage = JSON.parse(gotProdutcs ?? "");
     }
     currentProduct.precioTotal = currentProduct.precioUnitario * currentProduct.cantidad;
     productStorage?.push(currentProduct);
-    localStorage.setItem(this.nameShoppingCart, JSON.stringify(productStorage));
+    localStorage.setItem(ConstantData.ShoppingCartLocalStorageKey, JSON.stringify(productStorage));
 
     console.log(productStorage);
 
