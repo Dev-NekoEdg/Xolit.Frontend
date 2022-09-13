@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Product } from 'src/app/interfaces/product';
 import { ShoppingCart } from 'src/app/interfaces/shopping-cart';
 import { ConstantData } from 'src/app/services/ConstantData';
 import { ProductService } from 'src/app/services/product.service';
+import { ShoppingCartService } from 'src/app/services/shopping-cart.service';
 import { AddShoppingCartComponent } from '../add-shopping-cart/add-shopping-cart.component';
 
 @Component({
@@ -18,7 +20,9 @@ export class ProductsComponent implements OnInit {
   public aviableAmount: number[];
 
   constructor(
-    private service: ProductService
+    private service: ProductService,
+    private shoppingCartService: ShoppingCartService,
+    private router: Router,
   ) {
     this.shoppingCartStorage = this.emptyShoppingCart();
     this.aviableAmount = ConstantData.AmountProductAviable;
@@ -38,7 +42,12 @@ export class ProductsComponent implements OnInit {
     //alert('Se guardo');
     //TODO:  settear el combobox en 0.
     this.loadShoppingCart(currentProduct);
+    this.shoppingCartService.addItemShoppingCart(this.shoppingCartStorage)
 
+  }
+
+  goToShoppingCart(): void{
+    this.router.navigate(['check-out']);
   }
 
   loadShoppingCart(currentProduct: Product): void {
@@ -48,23 +57,6 @@ export class ProductsComponent implements OnInit {
     this.shoppingCartStorage.porcentajeInpuesto = currentProduct.porcentajeIVAAplicado;
     this.shoppingCartStorage.precioUnitario = currentProduct.valorVentaConIva;
 
-  }
-
-  addShoppingCart(currentProduct: ShoppingCart): void {
-    let productStorage: ShoppingCart[] = [];
-    const gotProdutcs = localStorage.getItem(ConstantData.ShoppingCartLocalStorageKey);
-    console.log(gotProdutcs);
-    if (gotProdutcs !== undefined && gotProdutcs !== "" && gotProdutcs !== null) {
-      productStorage = JSON.parse(gotProdutcs ?? "");
-    }
-    currentProduct.precioTotal = currentProduct.precioUnitario * currentProduct.cantidad;
-    productStorage?.push(currentProduct);
-    localStorage.setItem(ConstantData.ShoppingCartLocalStorageKey, JSON.stringify(productStorage));
-
-    console.log(productStorage);
-
-    // let modal = document.getElementById("staticBackdrop");
-    // modal?.classList.remove("mystyle");
   }
 
   emptyShoppingCart(): ShoppingCart {
