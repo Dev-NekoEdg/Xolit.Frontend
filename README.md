@@ -49,6 +49,13 @@ https://laratutorials.com/angular-13-bootstrap-modal-popup-example/
 
 [Video](https://www.youtube.com/watch?v=_rMWS4Neckg&t=335s)
 
+##### Observable
+Se crea un Subject, se inicializa y se coloca un método que retorne el subject.asObservable().
+ejemplo: ShoppingCartService.
+
+##### Renderizado de imagenes 
+se puede obtener una imagen de una url o directamente del servicio en base 64.
+
 
 =======
 # Xolit.Frontend
