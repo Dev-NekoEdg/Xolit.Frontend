@@ -22,7 +22,7 @@ export class MenuComponent implements OnInit {
   }
 
   loadnotification(): void {
-    this.shoppingCartService.getShoppingCart()
+    this.shoppingCartService.getShoppingCart$()
     .subscribe(itemShoppingCart => { 
       this.productQuantity = itemShoppingCart.length;
       this.productQuantityText = this.productQuantity > 9 ? "9+" : this.productQuantity.toString();  });

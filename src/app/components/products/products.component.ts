@@ -6,7 +6,6 @@ import { ShoppingCart } from 'src/app/interfaces/shopping-cart';
 import { ConstantData } from 'src/app/services/ConstantData';
 import { ProductService } from 'src/app/services/product.service';
 import { ShoppingCartService } from 'src/app/services/shopping-cart.service';
-import { AddShoppingCartComponent } from '../add-shopping-cart/add-shopping-cart.component';
 
 @Component({
   selector: 'app-products',
@@ -34,8 +33,12 @@ export class ProductsComponent implements OnInit {
 
 
   loadProducts(): void {
-    this.service.getProducts()
-      .subscribe((data) => this.listProducts = data);
+    this.service.getProducts().subscribe(
+      (data) => {
+        data.forEach(x => x.urlProducto = (x.isBase64Image ? 'data:image/png;base64,' + x.urlProducto : x.urlProducto));
+        console.log(data);
+        this.listProducts = data;
+      });
   }
 
   addProduct(currentProduct: Product): void {
@@ -46,16 +49,19 @@ export class ProductsComponent implements OnInit {
 
   }
 
-  goToShoppingCart(): void{
+  goToShoppingCart(): void {
     this.router.navigate(['check-out']);
   }
 
   loadShoppingCart(currentProduct: Product): void {
     this.shoppingCartStorage.productoId = currentProduct.id;
     this.shoppingCartStorage.nombreProducto = currentProduct.nombre;
+    this.shoppingCartStorage.descripcionProducto = currentProduct.detalleProducto;
     this.shoppingCartStorage.cantidad = 1;
     this.shoppingCartStorage.porcentajeInpuesto = currentProduct.porcentajeIVAAplicado;
     this.shoppingCartStorage.precioUnitario = currentProduct.valorVentaConIva;
+    this.shoppingCartStorage.image = currentProduct.urlProducto;
+    this.shoppingCartStorage.isImageBase64 = currentProduct.isBase64Image;
 
   }
 
@@ -63,10 +69,13 @@ export class ProductsComponent implements OnInit {
     return {
       productoId: '',
       nombreProducto: '',
+      descripcionProducto: '',
       precioUnitario: 0,
       cantidad: 0,
       precioTotal: 0,
-      porcentajeInpuesto: 0
+      porcentajeInpuesto: 0,
+      image: '',
+      isImageBase64: false
     };
   }
 

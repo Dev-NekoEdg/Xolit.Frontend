@@ -55,7 +55,7 @@ ejemplo: ShoppingCartService.
 
 ##### Renderizado de imagenes 
 se puede obtener una imagen de una url o directamente del servicio en base 64.
-
+Ejemplo: ´'data:image/png;base64,' + x.urlProducto´
 
 =======
 # Xolit.Frontend

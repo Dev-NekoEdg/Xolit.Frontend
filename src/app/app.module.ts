@@ -9,7 +9,6 @@ import { HomeComponent } from './components/home/home.component';
 import { MenuComponent } from './shared/menu/menu.component';
 import { ProductsComponent } from './components/products/products.component';
 import { TestData } from './services/testData';
-import { AddShoppingCartComponent } from './components/add-shopping-cart/add-shopping-cart.component';
 import { ConstantData } from './services/ConstantData';
 import { BuyProdutsComponent } from './components/buy-produts/buy-produts.component';
 
@@ -19,7 +18,6 @@ import { BuyProdutsComponent } from './components/buy-produts/buy-produts.compon
     MenuComponent,
     HomeComponent,
     ProductsComponent,
-    AddShoppingCartComponent,
     BuyProdutsComponent
   ],
   imports: [

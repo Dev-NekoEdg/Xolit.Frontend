@@ -1,1 +1,14 @@
-<p>buy-produts works!</p>
+<div class="row" *ngFor="let product of listShoppingCart">
+    <div class="col-md-4">
+        {{product.image}}
+    </div>
+    <div class="col-md-8">
+        <h3> {{ product.nombreProducto }}</h3>
+        <p>
+            {{ product.descripcionProducto}}
+        </p>
+    </div>
+    <div class="row">
+        <input type="button" (click)="removeItemFromShoppingCart(product)" value="Eliminar">
+    </div>
+</div>

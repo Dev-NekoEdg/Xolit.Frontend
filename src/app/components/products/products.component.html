@@ -24,7 +24,7 @@
 -->
 <div class="row row-cols-1 row-cols-md-2 g-3">
     <div class="card md-2 g-3 border-dark" *ngFor="let product of listProducts" style="max-width: 18rem;">
-        <img src="../../../assets/usuario.png" class="card-img-top" alt="pruebas">
+        <img src="{{ product.urlProducto }}" class="card-img-top" alt="pruebas">
         <div class="card-body">
             <h5 class="card-title">{{ product.nombre }}</h5>
             <p class="card-text">
@@ -53,17 +53,21 @@
                         Precio: {{ shoppingCartStorage.precioUnitario }}
                     </p>
                     <p>
+                        <!--
                         Cantidad:
                         <select [(ngModel)]="shoppingCartStorage.cantidad" name="cantidad" class="form-control">
                             <option *ngFor="let c of aviableAmount">{{c}}
                             </option>
                         </select>
+                        -->
+                        Descripci&oacute;n: {{ shoppingCartStorage.descripcionProducto }}
+
                     </p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" id="btnAddingShoppingCart" class="btn btn-primary" data-bs-dismiss="modal"
-                        (click)="goToShoppingCart()">Comprar</button>
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Seguir comprando</button>
+                    <button type="button" id="btnAddingShoppingCart" class="btn btn-success" data-bs-dismiss="modal"
+                        (click)="goToShoppingCart()">Ir al carrito</button>
                 </div>
             <!-- </form> -->
         </div>
