@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Product } from 'src/app/interfaces/product';
 import { ShoppingCart } from 'src/app/interfaces/shopping-cart';
+import { ConstantData } from 'src/app/services/ConstantData';
 import { ShoppingCartService } from 'src/app/services/shopping-cart.service';
 
 @Component({
@@ -10,18 +11,30 @@ import { ShoppingCartService } from 'src/app/services/shopping-cart.service';
 })
 export class BuyProdutsComponent implements OnInit {
 
-  public listShoppingCart: ShoppingCart[];
+  public listShoppingCart: ShoppingCart[] = [];
   constructor(
     private shoppingCartService: ShoppingCartService
-  ) { }
-
-  ngOnInit(): void {
+  ) { 
+    console.log('constructor');
     this.loadShoppingCart();
+  }
+  
+  ngOnInit(): void {
+    console.log('OnInit');
   }
 
   loadShoppingCart(): void {
-    this.shoppingCartService.getShoppingCart$().subscribe((data) => this.listShoppingCart = data);
+    // this.shoppingCartService.getShoppingCart$().subscribe(data =>{
+    //   console.log({'infoSubs' : data})
+    //  data.forEach(i=> this.listShoppingCart.push(i));
+    // });
+    const gotProdutcs = localStorage.getItem(ConstantData.ShoppingCartLocalStorageKey);
+    
+    if (gotProdutcs !== undefined && gotProdutcs !== "" && gotProdutcs !== null) {
+      this.listShoppingCart = JSON.parse(gotProdutcs ?? "");
+    }
 
+    console.log(this.listShoppingCart);
   }
 
   removeItemFromShoppingCart(item: ShoppingCart): void{

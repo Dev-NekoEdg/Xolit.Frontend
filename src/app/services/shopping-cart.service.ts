@@ -13,17 +13,29 @@ export class ShoppingCartService {
 
   constructor() {
     this.shoppingCart$ = new Subject();
+    this.loadShoppingCart();
+  }
+
+
+  getProductsFromLocalStorage() {
+    const gotProdutcs = localStorage.getItem(ConstantData.ShoppingCartLocalStorageKey);
+    
+    if (gotProdutcs !== undefined && gotProdutcs !== "" && gotProdutcs !== null) {
+      this.productStorage = JSON.parse(gotProdutcs ?? "");
+    }
+  }
+  
+  loadShoppingCart(){
+    this.getProductsFromLocalStorage();
+    this.shoppingCart$.next(this.productStorage);
+    console.log({'loadShoppingCart': this.productStorage });
   }
 
 
   addItemShoppingCart(item: ShoppingCart): void {
 
-    const gotProdutcs = localStorage.getItem(ConstantData.ShoppingCartLocalStorageKey);
-    console.log(gotProdutcs);
-
-    if (gotProdutcs !== undefined && gotProdutcs !== "" && gotProdutcs !== null) {
-      this.productStorage = JSON.parse(gotProdutcs ?? "");
-    }
+    this.getProductsFromLocalStorage();
+    
     item.precioTotal = item.precioUnitario * item.cantidad;
 
     this.productStorage?.push(item);
@@ -37,16 +49,13 @@ export class ShoppingCartService {
 
   removeItemShoppingCart(item: ShoppingCart): void {
 
-    const gotProdutcs = localStorage.getItem(ConstantData.ShoppingCartLocalStorageKey);
-    console.log(gotProdutcs);
-
-    if (gotProdutcs !== undefined && gotProdutcs !== "" && gotProdutcs !== null) {
-      this.productStorage = JSON.parse(gotProdutcs ?? "");
+    this.getProductsFromLocalStorage();
+    let index = this.productStorage.indexOf(item);
+    if (index > -1) {
+      this.productStorage.splice(index, 1);
     }
-    item.precioTotal = item.precioUnitario * item.cantidad;
 
-    this.productStorage?.push(item);
-    this.shoppingCart$.next(this.productStorage); // Se aggrega el producto al subject.
+    this.shoppingCart$.next(this.productStorage); 
 
     localStorage.setItem(ConstantData.ShoppingCartLocalStorageKey,
       JSON.stringify(this.productStorage));
@@ -55,6 +64,8 @@ export class ShoppingCartService {
   }
 
   getShoppingCart$(): Observable<ShoppingCart[]> {
+    this.getProductsFromLocalStorage();
+    this.shoppingCart$.next(this.productStorage);
     return this.shoppingCart$.asObservable();
   }
 }

@@ -57,6 +57,10 @@ ejemplo: ShoppingCartService.
 se puede obtener una imagen de una url o directamente del servicio en base 64.
 Ejemplo: ´'data:image/png;base64,' + x.urlProducto´
 
+##### Footer
+El footer si tiene el position: absolute y no esta contenido en un elemento que tenga posicion, toma el pósition del viewport. Por eso el footer queda en medio de la pantalla cuando hay mucha información.
+
+
 =======
 # Xolit.Frontend
 Frontend for Shopping Cart Xolit
