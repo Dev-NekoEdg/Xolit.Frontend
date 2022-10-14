@@ -13,7 +13,6 @@ export class ShoppingCartService {
 
   constructor() {
     this.shoppingCart$ = new Subject();
-    this.loadShoppingCart();
   }
 
 

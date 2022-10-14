@@ -13,24 +13,44 @@ export class MenuComponent implements OnInit {
 
   public productQuantity: number = 0;
   public productQuantityText: string = "0";
+
+  private cosa: ShoppingCart[] = []
+
   constructor(
     private router: Router,
-    private shoppingCartService: ShoppingCartService) { }
+    private shoppingCartService: ShoppingCartService) {
 
-  ngOnInit(): void {
-    this.loadnotification();
   }
 
-  loadnotification(): void {
+  ngOnInit(): void {
+    console.log('onInit menu component');
+    this.getProductsFromLocalStorage();
+    this.loadNotification();
+
+  }
+
+  loadNotification(): void {
+    this.shoppingCartService.loadShoppingCart();
     this.shoppingCartService.getShoppingCart$()
-    .subscribe(itemShoppingCart => { 
-      console.log({'notifications':itemShoppingCart} );
-      this.productQuantity = itemShoppingCart.length;
-      this.productQuantityText = this.productQuantity > 9 ? "9+" : this.productQuantity.toString();  });
+      .subscribe(itemShoppingCart => {
+        console.log({ 'notifications': itemShoppingCart });
+        this.productQuantity = itemShoppingCart.length;
+        this.productQuantityText = this.productQuantity > 9 ? "9+" : this.productQuantity.toString();
+      });
   }
 
   goToBuyProdutcs(): void {
     this.router.navigate(['check-out']);
   }
 
+  getProductsFromLocalStorage() {
+    const gotProdutcs = localStorage.getItem(ConstantData.ShoppingCartLocalStorageKey);
+
+    if (gotProdutcs !== undefined && gotProdutcs !== "" && gotProdutcs !== null) {
+      this.cosa = JSON.parse(gotProdutcs ?? "");
+
+      this.productQuantity = this.cosa.length;
+      this.productQuantityText = this.productQuantity > 9 ? "9+" : this.productQuantity.toString();
+    }
+  }
 }
