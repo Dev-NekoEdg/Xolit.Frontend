@@ -11,9 +11,12 @@
             </div>
             <div class="col-md-2">
                 <h4 class="alert-heading">{{ product.nombreProducto }}</h4>
-                <p>
-                    {{ product.descripcionProducto}}
-                </p>
+                <div class="d-block">
+                    <p >{{ product.descripcionProducto}}</p>
+                    <label >Precio: {{ product.precioUnitario }}</label>
+                    <label >Unidades: {{ product.cantidad }}</label>
+                    <label >Total a pagar: <b>{{ product.precioTotal }}</b></label>
+                </div>
 
             </div>
         </div>

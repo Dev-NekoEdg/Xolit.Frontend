@@ -18,26 +18,37 @@ export class ShoppingCartService {
 
   getProductsFromLocalStorage() {
     const gotProdutcs = localStorage.getItem(ConstantData.ShoppingCartLocalStorageKey);
-    
+
     if (gotProdutcs !== undefined && gotProdutcs !== "" && gotProdutcs !== null) {
       this.productStorage = JSON.parse(gotProdutcs ?? "");
     }
   }
-  
-  loadShoppingCart(){
+
+  loadShoppingCart() {
     this.getProductsFromLocalStorage();
     this.shoppingCart$.next(this.productStorage);
-    console.log({'loadShoppingCart': this.productStorage });
+    console.log({ 'loadShoppingCart': this.productStorage });
   }
 
 
   addItemShoppingCart(item: ShoppingCart): void {
 
     this.getProductsFromLocalStorage();
-    
     item.precioTotal = item.precioUnitario * item.cantidad;
 
-    this.productStorage?.push(item);
+    let existingItem = this.productStorage?.find((i) => { return i.productoId === item.productoId });
+    if (existingItem !== null && existingItem !== undefined) {
+      const index = this.productStorage.indexOf(existingItem);
+      item.precioTotal = item.precioUnitario * item.cantidad;
+      existingItem.cantidad += item.cantidad;
+      existingItem.precioTotal = existingItem.precioUnitario * existingItem.cantidad;
+      this.productStorage[index] = existingItem;
+    }
+    else {
+
+      this.productStorage?.push(item);
+    }
+
     this.shoppingCart$.next(this.productStorage); // Se aggrega el producto al subject.
 
     localStorage.setItem(ConstantData.ShoppingCartLocalStorageKey,
@@ -54,7 +65,7 @@ export class ShoppingCartService {
       this.productStorage.splice(index, 1);
     }
 
-    this.shoppingCart$.next(this.productStorage); 
+    this.shoppingCart$.next(this.productStorage);
 
     localStorage.setItem(ConstantData.ShoppingCartLocalStorageKey,
       JSON.stringify(this.productStorage));

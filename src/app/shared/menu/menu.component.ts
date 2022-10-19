@@ -14,7 +14,7 @@ export class MenuComponent implements OnInit {
   public productQuantity: number = 0;
   public productQuantityText: string = "0";
 
-  private cosa: ShoppingCart[] = []
+  private jsonProducts: ShoppingCart[] = []
 
   constructor(
     private router: Router,
@@ -47,9 +47,15 @@ export class MenuComponent implements OnInit {
     const gotProdutcs = localStorage.getItem(ConstantData.ShoppingCartLocalStorageKey);
 
     if (gotProdutcs !== undefined && gotProdutcs !== "" && gotProdutcs !== null) {
-      this.cosa = JSON.parse(gotProdutcs ?? "");
+      this.jsonProducts = JSON.parse(gotProdutcs ?? "");
 
-      this.productQuantity = this.cosa.length;
+      // reduce: for each object we increment  the ´accumulator´ variable by ´cantidad´ value.
+      // the 0 as second parameter means the we initilized the ´accumulator´ by 0.
+      const result = this.jsonProducts.reduce((accumulator, item) => {
+        return accumulator + item.cantidad;
+      }, 0);
+
+      this.productQuantity = result;
       this.productQuantityText = this.productQuantity > 9 ? "9+" : this.productQuantity.toString();
     }
   }
