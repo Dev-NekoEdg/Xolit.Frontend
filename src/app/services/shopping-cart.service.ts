@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { ShoppingCart } from '../interfaces/shopping-cart';
 import { ConstantData } from './ConstantData';
 
@@ -9,10 +9,11 @@ import { ConstantData } from './ConstantData';
 export class ShoppingCartService {
 
   private productStorage: ShoppingCart[] = [];
-  private shoppingCart$: Subject<ShoppingCart[]>;
+  private shoppingCart$: BehaviorSubject<ShoppingCart[]>;
 
   constructor() {
-    this.shoppingCart$ = new Subject();
+    //this.shoppingCart$ = new Subject();
+    this.shoppingCart$ = new BehaviorSubject<ShoppingCart[]>([]);
   }
 
 

@@ -18,23 +18,21 @@ export class MenuComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private shoppingCartService: ShoppingCartService) {
-
+    private shoppingCartService: ShoppingCartService) 
+  {
   }
 
   ngOnInit(): void {
     console.log('onInit menu component');
-    this.getProductsFromLocalStorage();
     this.loadNotification();
-
   }
 
   loadNotification(): void {
-    this.shoppingCartService.loadShoppingCart();
+    // this.shoppingCartService.loadShoppingCart();
     this.shoppingCartService.getShoppingCart$()
-      .subscribe(itemShoppingCart => {
-        console.log({ 'notifications': itemShoppingCart });
-        this.productQuantity = itemShoppingCart.length;
+      .subscribe(items => {
+        let count = this.countItems(items);
+        this.productQuantity = count;
         this.productQuantityText = this.productQuantity > 9 ? "9+" : this.productQuantity.toString();
       });
   }
@@ -42,6 +40,15 @@ export class MenuComponent implements OnInit {
   goToBuyProdutcs(): void {
     this.router.navigate(['check-out']);
   }
+
+  countItems(items: ShoppingCart[]){
+    const result = items.reduce((accumulator, item) => {
+      return accumulator + item.cantidad;
+    }, 0);
+
+    return result;
+  }
+  
 
   getProductsFromLocalStorage() {
     const gotProdutcs = localStorage.getItem(ConstantData.ShoppingCartLocalStorageKey);

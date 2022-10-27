@@ -24,21 +24,22 @@ export class BuyProdutsComponent implements OnInit {
   }
 
   loadShoppingCart(): void {
-    // this.shoppingCartService.getShoppingCart$().subscribe(data =>{
-    //   console.log({'infoSubs' : data})
-    //  data.forEach(i=> this.listShoppingCart.push(i));
-    // });
-    const gotProdutcs = localStorage.getItem(ConstantData.ShoppingCartLocalStorageKey);
+    this.shoppingCartService.getShoppingCart$().subscribe(data =>{
+      console.log({'infoSubs' : data})
+     this.listShoppingCart = data;
+    });
     
-    if (gotProdutcs !== undefined && gotProdutcs !== "" && gotProdutcs !== null) {
-      this.listShoppingCart = JSON.parse(gotProdutcs ?? "");
-    }
+    // const gotProdutcs = localStorage.getItem(ConstantData.ShoppingCartLocalStorageKey);
+    
+    // if (gotProdutcs !== undefined && gotProdutcs !== "" && gotProdutcs !== null) {
+    //   this.listShoppingCart = JSON.parse(gotProdutcs ?? "");
+    // }
 
     console.log(this.listShoppingCart);
   }
 
   removeItemFromShoppingCart(item: ShoppingCart): void{
-
+    this.shoppingCartService.removeItemShoppingCart(item);
   }
 
   
