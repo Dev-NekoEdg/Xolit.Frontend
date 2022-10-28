@@ -39,6 +39,7 @@ export class BuyProdutsComponent implements OnInit {
   }
 
   removeItemFromShoppingCart(item: ShoppingCart): void{
+    console.log('removeItemFromShoppingCart');
     this.shoppingCartService.removeItemShoppingCart(item);
   }
 

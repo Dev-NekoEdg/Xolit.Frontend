@@ -62,9 +62,18 @@ export class ShoppingCartService {
 
     this.getProductsFromLocalStorage();
     let index = this.productStorage.indexOf(item);
-    if (index > -1) {
-      this.productStorage.splice(index, 1);
-    }
+
+    this.productStorage.forEach((value,  index)=>{
+      if(value.productoId==item.productoId) 
+      {
+        this.productStorage.splice(index,1);
+      }
+    });
+
+    // console.log({index: index});
+    // if (index > -1) {
+    //   this.productStorage.splice(index, 1);
+    // }
 
     this.shoppingCart$.next(this.productStorage);
 
