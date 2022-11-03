@@ -12,6 +12,8 @@ import { ShoppingCartService } from 'src/app/services/shopping-cart.service';
 export class BuyProdutsComponent implements OnInit {
 
   public listShoppingCart: ShoppingCart[] = [];
+  public listValidAmount: number[] = ConstantData.AmountProductAviable;
+
   constructor(
     private shoppingCartService: ShoppingCartService
   ) { 
@@ -36,6 +38,11 @@ export class BuyProdutsComponent implements OnInit {
     // }
 
     console.log(this.listShoppingCart);
+  }
+
+  changeAmount(id: string): void
+  {
+    alert(id);
   }
 
   removeItemFromShoppingCart(item: ShoppingCart): void{

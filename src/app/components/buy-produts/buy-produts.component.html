@@ -14,7 +14,18 @@
                 <div class="d-block">
                     <p >{{ product.descripcionProducto}}</p>
                     <label >Precio: {{ product.precioUnitario }}</label>
-                    <label >Unidades: {{ product.cantidad }}</label>
+                    <label >Unidades: 
+                        <select 
+                            name="selectAmount"
+                            ngModel
+                            (change)="changeAmount(product.productoId)" >
+                            <option 
+                                *ngFor="let cantidad of listValidAmount" 
+                                value="cantidad"
+                                >{{ cantidad }}
+                            </option>
+                        </select>
+                    </label>
                     <label >Total a pagar: <b>{{ product.precioTotal }}</b></label>
                 </div>
 
