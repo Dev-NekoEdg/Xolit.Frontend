@@ -27,27 +27,9 @@ export class BuyProdutsComponent implements OnInit {
 
   loadShoppingCart(): void {
     this.shoppingCartService.getShoppingCart$().subscribe(data =>{
-      console.log({'infoSubs' : data})
+      // console.log({'infoSubs' : data})
      this.listShoppingCart = data;
     });
-    
-    // const gotProdutcs = localStorage.getItem(ConstantData.ShoppingCartLocalStorageKey);
-    
-    // if (gotProdutcs !== undefined && gotProdutcs !== "" && gotProdutcs !== null) {
-    //   this.listShoppingCart = JSON.parse(gotProdutcs ?? "");
-    // }
-
-    console.log(this.listShoppingCart);
-  }
-
-  changeAmount(id: string): void
-  {
-    alert(id);
-  }
-
-  removeItemFromShoppingCart(item: ShoppingCart): void{
-    console.log('removeItemFromShoppingCart');
-    this.shoppingCartService.removeItemShoppingCart(item);
   }
 
   

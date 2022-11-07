@@ -11,6 +11,7 @@ import { ProductsComponent } from './components/products/products.component';
 import { TestData } from './services/testData';
 import { ConstantData } from './services/ConstantData';
 import { BuyProdutsComponent } from './components/buy-produts/buy-produts.component';
+import { RowProductOnCartComponent } from './components/row-product-on-cart/row-product-on-cart.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { BuyProdutsComponent } from './components/buy-produts/buy-produts.compon
     MenuComponent,
     HomeComponent,
     ProductsComponent,
-    BuyProdutsComponent
+    BuyProdutsComponent,
+    RowProductOnCartComponent
   ],
   imports: [
     BrowserModule,

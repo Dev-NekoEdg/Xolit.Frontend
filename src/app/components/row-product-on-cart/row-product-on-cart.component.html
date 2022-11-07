@@ -1,0 +1,75 @@
+<!--
+    -- first sketch --
+<div class="alert alert-secondary">
+    <div class="row">
+        <div class="col-md-3 text-center" style="border: 2px solid black;"  >
+            <img src="{{product.image}}" class="rounded float-left"
+                 height="200" width="200">
+        </div>
+        <div class="col-md-2">
+            <h4 class="alert-heading">{{ product.nombreProducto }}</h4>
+            <div class="d-block">
+                <p> {{product.descripcionProducto}}</p>
+                <label >Precio: {{ product.precioUnitario | number }}</label>
+                <label >Unidades:
+                    <select
+                        name="selectAmount"
+                        [(ngModel)]="product.cantidad"
+                        (change)="changeAmount()" >
+                        <option *ngFor="let cantidad of listValidAmount"
+                            >{{cantidad}}
+                        </option>
+                    </select>
+                </label>
+                <label >Total a pagar: <b>{{ product.precioTotal | number }}</b></label>
+            </div>
+
+        </div>
+    </div>
+    <hr>
+    <div class="text-end">
+        <input type="button" class="btn btn-danger" (click)="removeItemFromShoppingCart(product)" value="Eliminar">
+    </div>
+</div>
+style="max-width: 540px;"
+-->
+
+<div class="card mb-3">
+    <div class="row no-gutters">
+        <div class="col-md-4 text-center">
+            <img src="{{product.image}}" style="max-width: 200px; max-height: 200px ;">
+        </div>
+        <div class="col-md-8">
+            <div class="card-body">
+                <h5 class="card-title">{{ product.nombreProducto }}</h5>
+                <p class="card-text">{{product.descripcionProducto}}</p>
+                <div class="card-text">
+                    <!-- <small class="text-muted">Last updated 3 mins ago</small> -->
+                    <div class="d-block">
+                        <div class="row" >
+                            <label>Precio: {{ product.precioUnitario | number }}</label>
+                        </div>
+                        <div class="d-md-inline-flex" >
+                            <label class="align-bottom"># de unidades:</label>
+                            <select [(ngModel)]="product.cantidad" 
+                                style="width: 50px;"
+                                class="form-control-sm" 
+                                (change)="changeAmount()">
+                                <option *ngFor="let cantidad of listValidAmount">
+                                    {{cantidad}}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="row">
+                            <label>Total a pagar: <b>{{ product.precioTotal | number }}</b></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-end">
+                    <input type="button" class="btn btn-danger" (click)="removeItemFromShoppingCart(product)"
+                        value="Eliminar">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
