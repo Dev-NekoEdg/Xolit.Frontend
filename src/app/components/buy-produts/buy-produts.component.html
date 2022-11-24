@@ -1,8 +1,11 @@
-<p>
-    pruebas psdojoisafcdjo
-</p>
-<div class="container-fluid" >
-    <app-row-product-on-cart 
-        *ngFor="let product of listShoppingCart"
-        [currentProduct]="product" ></app-row-product-on-cart>
+<div *ngIf="listShoppingCart.length <= 0">
+<h4>Tu carrito está vació..</h4>
+</div>
+<div *ngIf="listShoppingCart.length > 0">
+    <div class="container-fluid" >
+        <app-row-product-on-cart 
+            *ngFor="let product of listShoppingCart"
+            [currentProduct]="product" ></app-row-product-on-cart>
+    </div>
+
 </div>

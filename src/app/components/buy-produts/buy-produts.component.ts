@@ -12,6 +12,7 @@ import { ShoppingCartService } from 'src/app/services/shopping-cart.service';
 export class BuyProdutsComponent implements OnInit {
 
   public listShoppingCart: ShoppingCart[] = [];
+  public hasProducts: boolean = true;
   public listValidAmount: number[] = ConstantData.AmountProductAviable;
 
   constructor(
@@ -29,6 +30,7 @@ export class BuyProdutsComponent implements OnInit {
     this.shoppingCartService.getShoppingCart$().subscribe(data =>{
       // console.log({'infoSubs' : data})
      this.listShoppingCart = data;
+     // this.hasProducts= (this.listShoppingCart.length > 0);
     });
   }
 
