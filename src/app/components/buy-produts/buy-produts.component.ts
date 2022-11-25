@@ -14,8 +14,10 @@ export class BuyProdutsComponent implements OnInit {
   public listShoppingCart: ShoppingCart[] = [];
   public hasProducts: boolean = true;
   public listValidAmount: number[] = ConstantData.AmountProductAviable;
+  public total: number = 0;
 
-  constructor(
+  constructor
+  (
     private shoppingCartService: ShoppingCartService
   ) { 
     console.log('constructor');
@@ -30,6 +32,7 @@ export class BuyProdutsComponent implements OnInit {
     this.shoppingCartService.getShoppingCart$().subscribe(data =>{
       // console.log({'infoSubs' : data})
      this.listShoppingCart = data;
+     this.total = data.reduce((accumulator, obj) => { return accumulator + obj.precioTotal; }, 0);
      // this.hasProducts= (this.listShoppingCart.length > 0);
     });
   }

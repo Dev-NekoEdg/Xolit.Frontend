@@ -7,5 +7,10 @@
             *ngFor="let product of listShoppingCart"
             [currentProduct]="product" ></app-row-product-on-cart>
     </div>
+    <hr>
+    <div>
+        <span><b>Total a pagar:</b></span>
+        <span class="text-end">{{ total }}</span>
+    </div>
 
 </div>
