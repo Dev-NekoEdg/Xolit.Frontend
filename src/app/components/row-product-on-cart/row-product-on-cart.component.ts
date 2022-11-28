@@ -20,6 +20,8 @@ export class RowProductOnCartComponent implements OnInit {
 
   changeAmount(): void {
     this.product.precioTotal =  this.product.cantidad * this.product.precioUnitario;
+
+    this.shoppingCartService.updateItemShoppingCart(this.product);
   }
 
   removeItemFromShoppingCart(item: ShoppingCart): void{

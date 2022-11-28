@@ -83,6 +83,29 @@ export class ShoppingCartService {
     console.log(this.productStorage);
   }
 
+  updateItemShoppingCart(item: ShoppingCart): void {
+    this.getProductsFromLocalStorage();
+    let index = this.productStorage.findIndex(x=> x.productoId === item.productoId);
+    console.log({index: index});
+    console.log({ItemShopping: item});
+
+    if(index < 0){
+      // exception.
+    }
+
+    let currentItem = this.productStorage[index];
+    currentItem.cantidad = item.cantidad;
+    currentItem.precioTotal = item.precioTotal;
+    
+    this.productStorage[index] = currentItem;
+    
+    localStorage.setItem(ConstantData.ShoppingCartLocalStorageKey,
+      JSON.stringify(this.productStorage));
+
+    this.shoppingCart$.next(this.productStorage);
+  }
+
+
   getShoppingCart$(): Observable<ShoppingCart[]> {
     this.getProductsFromLocalStorage();
     this.shoppingCart$.next(this.productStorage);
