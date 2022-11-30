@@ -1,5 +1,5 @@
 export interface ShoppingCart {
-    productoId: string;
+    productoId: number;
     nombreProducto: string;
     descripcionProducto: string;
     precioUnitario: number;

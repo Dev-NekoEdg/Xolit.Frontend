@@ -17,16 +17,18 @@ export class ShoppingCartService {
   }
 
 
-  getProductsFromLocalStorage() {
+  private getProductsFromLocalStorage(): ShoppingCart[] {
     const gotProdutcs = localStorage.getItem(ConstantData.ShoppingCartLocalStorageKey);
-
+    let productStorage: ShoppingCart[] = [];
     if (gotProdutcs !== undefined && gotProdutcs !== "" && gotProdutcs !== null) {
-      this.productStorage = JSON.parse(gotProdutcs ?? "");
+      productStorage = JSON.parse(gotProdutcs ?? "");
     }
+
+    return productStorage;
   }
 
   loadShoppingCart() {
-    this.getProductsFromLocalStorage();
+    this.productStorage = this.getProductsFromLocalStorage();
     this.shoppingCart$.next(this.productStorage);
     console.log({ 'loadShoppingCart': this.productStorage });
   }
@@ -34,16 +36,17 @@ export class ShoppingCartService {
 
   addItemShoppingCart(item: ShoppingCart): void {
 
-    this.getProductsFromLocalStorage();
-    item.precioTotal = item.precioUnitario * item.cantidad;
+    this.productStorage = this.getProductsFromLocalStorage();
+    console.log({'this.productStorage':this.productStorage});
 
-    let existingItem = this.productStorage?.find((i) => { return i.productoId === item.productoId });
-    if (existingItem !== null && existingItem !== undefined) {
-      const index = this.productStorage.indexOf(existingItem);
-      item.precioTotal = item.precioUnitario * item.cantidad;
+    let currentIndex = this.productStorage.findIndex(x => x.productoId === item.productoId);
+    console.log({currentIndex: currentIndex});
+    if (currentIndex >= 0) {
+      console.log('entro al if');
+      let existingItem = this.productStorage[currentIndex];
       existingItem.cantidad += item.cantidad;
       existingItem.precioTotal = existingItem.precioUnitario * existingItem.cantidad;
-      this.productStorage[index] = existingItem;
+      this.productStorage[currentIndex] = existingItem;
     }
     else {
 
@@ -51,22 +54,17 @@ export class ShoppingCartService {
     }
 
     this.shoppingCart$.next(this.productStorage); // Se aggrega el producto al subject.
-
-    localStorage.setItem(ConstantData.ShoppingCartLocalStorageKey,
-      JSON.stringify(this.productStorage));
-
-    console.log(this.productStorage);
+    this.saveLocalStorage();
   }
 
   removeItemShoppingCart(item: ShoppingCart): void {
 
-    this.getProductsFromLocalStorage();
-    let index = this.productStorage.indexOf(item);
+    this.productStorage = this.getProductsFromLocalStorage();
+    let index = this.productStorage.findIndex(x => x.productoId === item.productoId);
 
-    this.productStorage.forEach((value,  index)=>{
-      if(value.productoId==item.productoId) 
-      {
-        this.productStorage.splice(index,1);
+    this.productStorage.forEach((value, index) => {
+      if (value.productoId == item.productoId) {
+        this.productStorage.splice(index, 1);
       }
     });
 
@@ -77,28 +75,26 @@ export class ShoppingCartService {
 
     this.shoppingCart$.next(this.productStorage);
 
-    localStorage.setItem(ConstantData.ShoppingCartLocalStorageKey,
-      JSON.stringify(this.productStorage));
-
     console.log(this.productStorage);
   }
 
   updateItemShoppingCart(item: ShoppingCart): void {
-    this.getProductsFromLocalStorage();
-    let index = this.productStorage.findIndex(x=> x.productoId === item.productoId);
-    console.log({index: index});
-    console.log({ItemShopping: item});
 
-    if(index < 0){
+    this.productStorage = this.getProductsFromLocalStorage();
+    let index = this.productStorage.findIndex(x => x.productoId === item.productoId);
+    console.log({ index: index });
+    console.log({ ItemShopping: item });
+
+    if (index < 0) {
       // exception.
     }
 
     let currentItem = this.productStorage[index];
     currentItem.cantidad = item.cantidad;
     currentItem.precioTotal = item.precioTotal;
-    
+
     this.productStorage[index] = currentItem;
-    
+
     localStorage.setItem(ConstantData.ShoppingCartLocalStorageKey,
       JSON.stringify(this.productStorage));
 
@@ -107,8 +103,14 @@ export class ShoppingCartService {
 
 
   getShoppingCart$(): Observable<ShoppingCart[]> {
-    this.getProductsFromLocalStorage();
+    this.productStorage = this.getProductsFromLocalStorage();
     this.shoppingCart$.next(this.productStorage);
     return this.shoppingCart$.asObservable();
   }
+
+
+  private saveLocalStorage(): void{
+    localStorage.setItem(ConstantData.ShoppingCartLocalStorageKey,
+      JSON.stringify(this.productStorage));
+    }
 }

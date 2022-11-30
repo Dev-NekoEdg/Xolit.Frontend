@@ -43,8 +43,11 @@ export class ProductsComponent implements OnInit {
 
   addProduct(currentProduct: Product): void {
     //alert('Se guardo');
-    //TODO:  settear el combobox en 0.
-    this.loadShoppingCart(currentProduct);
+    //let shoppingProduct = this.loadShoppingCart(currentProduct);
+
+    console.log({currentProduct: currentProduct});
+    this.shoppingCartStorage = this.loadShoppingCart(currentProduct);
+    console.log({shoppingCartStorage: this.shoppingCartStorage});
     this.shoppingCartService.addItemShoppingCart(this.shoppingCartStorage)
 
   }
@@ -53,21 +56,23 @@ export class ProductsComponent implements OnInit {
     this.router.navigate(['check-out']);
   }
 
-  loadShoppingCart(currentProduct: Product): void {
-    this.shoppingCartStorage.productoId = currentProduct.id;
-    this.shoppingCartStorage.nombreProducto = currentProduct.nombre;
-    this.shoppingCartStorage.descripcionProducto = currentProduct.detalleProducto;
-    this.shoppingCartStorage.cantidad = 1;
-    this.shoppingCartStorage.porcentajeInpuesto = currentProduct.porcentajeIVAAplicado;
-    this.shoppingCartStorage.precioUnitario = currentProduct.valorVentaConIva;
-    this.shoppingCartStorage.image = currentProduct.urlProducto;
-    this.shoppingCartStorage.isImageBase64 = currentProduct.isBase64Image;
+  private loadShoppingCart(currentProduct: Product): ShoppingCart {
+    let newShoppingCartItem: ShoppingCart = this.emptyShoppingCart();
+    newShoppingCartItem.productoId = currentProduct.productoId;
+    newShoppingCartItem.nombreProducto = currentProduct.nombre;
+    newShoppingCartItem.descripcionProducto = currentProduct.detalleProducto;
+    newShoppingCartItem.cantidad = 1;
+    newShoppingCartItem.porcentajeInpuesto = currentProduct.porcentajeIVAAplicado;
+    newShoppingCartItem.precioUnitario = currentProduct.valorVentaConIva;
+    newShoppingCartItem.image = currentProduct.urlProducto;
+    newShoppingCartItem.isImageBase64 = currentProduct.isBase64Image;
 
+    return newShoppingCartItem;
   }
 
   emptyShoppingCart(): ShoppingCart {
     return {
-      productoId: '',
+      productoId: -1,
       nombreProducto: '',
       descripcionProducto: '',
       precioUnitario: 0,

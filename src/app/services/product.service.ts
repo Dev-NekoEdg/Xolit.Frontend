@@ -17,14 +17,14 @@ export class ProductService {
   ) { }
   
   getProducts(): Observable<Product[]> {
-    //return this.http.get<Product[]>(this.urlApiProducts);
-    const studentsObservable = new Observable<Product[]>(observer => {
-      setTimeout(() => {
-          observer.next(TestData.products);
-      }, 1000);
-    });
+    return this.http.get<Product[]>(this.urlApiProducts);
+    // const studentsObservable = new Observable<Product[]>(observer => {
+    //   setTimeout(() => {
+    //       observer.next(TestData.products);
+    //   }, 1000);
+    // });
     
-    return studentsObservable;
+    // return studentsObservable;
   }
   
 }
