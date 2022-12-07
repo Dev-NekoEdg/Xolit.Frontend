@@ -74,7 +74,7 @@ export class ShoppingCartService {
     // }
 
     this.shoppingCart$.next(this.productStorage);
-
+    this.saveLocalStorage();
     console.log(this.productStorage);
   }
 
@@ -94,11 +94,10 @@ export class ShoppingCartService {
     currentItem.precioTotal = item.precioTotal;
 
     this.productStorage[index] = currentItem;
-
-    localStorage.setItem(ConstantData.ShoppingCartLocalStorageKey,
-      JSON.stringify(this.productStorage));
-
+    
     this.shoppingCart$.next(this.productStorage);
+
+    this.saveLocalStorage();
   }
 
 

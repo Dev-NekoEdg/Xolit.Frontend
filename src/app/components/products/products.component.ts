@@ -31,7 +31,6 @@ export class ProductsComponent implements OnInit {
     this.loadProducts();
   }
 
-
   loadProducts(): void {
     this.service.getProducts().subscribe(
       (data) => {
@@ -44,10 +43,7 @@ export class ProductsComponent implements OnInit {
   addProduct(currentProduct: Product): void {
     //alert('Se guardo');
     //let shoppingProduct = this.loadShoppingCart(currentProduct);
-
-    console.log({currentProduct: currentProduct});
     this.shoppingCartStorage = this.loadShoppingCart(currentProduct);
-    console.log({shoppingCartStorage: this.shoppingCartStorage});
     this.shoppingCartService.addItemShoppingCart(this.shoppingCartStorage)
 
   }
@@ -66,6 +62,7 @@ export class ProductsComponent implements OnInit {
     newShoppingCartItem.precioUnitario = currentProduct.valorVentaConIva;
     newShoppingCartItem.image = currentProduct.urlProducto;
     newShoppingCartItem.isImageBase64 = currentProduct.isBase64Image;
+    newShoppingCartItem.precioTotal = newShoppingCartItem.precioUnitario * newShoppingCartItem.cantidad;
 
     return newShoppingCartItem;
   }

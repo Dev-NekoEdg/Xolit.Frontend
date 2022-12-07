@@ -41,7 +41,7 @@ export class MenuComponent implements OnInit {
     this.router.navigate(['check-out']);
   }
 
-  countItems(items: ShoppingCart[]){
+  countItems(items: ShoppingCart[]): number{
     const result = items.reduce((accumulator, item) => {
       return accumulator + item.cantidad;
     }, 0);
