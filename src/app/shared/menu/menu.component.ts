@@ -42,10 +42,14 @@ export class MenuComponent implements OnInit {
   }
 
   countItems(items: ShoppingCart[]): number{
-    const result = items.reduce((accumulator, item) => {
-      return accumulator + item.cantidad;
+    const result : number = items.reduce((accumulator, item) => {
+    console.log(`contador de badge`);
+      
+      console.log({ accumulator:accumulator});
+      console.log({ item:item});
+      return accumulator + Math.floor(item.cantidad);
     }, 0);
-
+    console.log(`Contador menu: ${ result }`);
     return result;
   }
   
@@ -58,8 +62,9 @@ export class MenuComponent implements OnInit {
 
       // reduce: for each object we increment  the ´accumulator´ variable by ´cantidad´ value.
       // the 0 as second parameter means the we initilized the ´accumulator´ by 0.
-      const result = this.jsonProducts.reduce((accumulator, item) => {
-        return accumulator + item.cantidad;
+      // Math.floor() --> Take the integer part form a number.
+      const result: number = this.jsonProducts.reduce((accumulator, item) => {
+        return  accumulator + Math.floor(item.cantidad);
       }, 0);
 
       this.productQuantity = result;

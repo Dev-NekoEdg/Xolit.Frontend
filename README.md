@@ -65,7 +65,16 @@ Ejemplo: ´'data:image/png;base64,' + x.urlProducto´
 El footer si tiene el position: absolute y no esta contenido en un elemento que tenga posicion, toma el pósition del viewport. Por eso el footer queda en medio de la pantalla cuando hay mucha información.
 
 
-=======
+##### Conversiones
+
+Para conversiones rápida se puede usar un más(+) antes de la variable. ` +variable`
+
+*Math.floor* :  toma la parte entera de un numero.
+
+*Math.round* : redondea el número según la parte decimal. Este retorna un entero.
+
+
+------
 # Xolit.Frontend
 Frontend for Shopping Cart Xolit
 
