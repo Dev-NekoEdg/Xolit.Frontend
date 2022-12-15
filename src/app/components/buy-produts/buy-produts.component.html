@@ -1,16 +1,68 @@
 <div *ngIf="listShoppingCart.length <= 0">
-<h4>Tu carrito está vació..</h4>
+    <h4>Tu carrito está vació..</h4>
 </div>
 <div *ngIf="listShoppingCart.length > 0">
-    <div class="container-fluid" >
-        <app-row-product-on-cart 
-            *ngFor="let product of listShoppingCart"
-            [currentProduct]="product" ></app-row-product-on-cart>
+    <div class="container-fluid">
+        <app-row-product-on-cart *ngFor="let product of listShoppingCart"
+            [currentProduct]="product"></app-row-product-on-cart>
     </div>
     <hr>
-    <div>
+    <div class="text-end">
         <span><b>Total a pagar: </b></span>
-         <span class="text-end">{{ total | number }}</span>
+        <span class="text-end">{{ total | number }}</span>
+
+    </div>
+    <div class="text-end">
+        <input type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal"
+            value="Comprar">
     </div>
 
+</div>
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="clientData" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Factura</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="mb-3">
+                        <label for="recipient-name" class="col-form-label">Nombre:</label>
+                        <input type="text" class="form-control">
+                    </div>
+                    <div class="mb-3">
+                        <label for="recipient-name" class="col-form-label">Apellidos:</label>
+                        <input type="text" class="form-control" >
+                    </div>
+                    <div class="mb-3">
+                        <label for="recipient-name" class="col-form-label">Identificación:</label>
+                        <input type="text" class="form-control" >
+                    </div>
+                    <div class="mb-3">
+                        <label for="recipient-name" class="col-form-label">Número telefónico:</label>
+                        <input type="text" class="form-control" >
+                    </div>
+                    <div class="mb-3">
+                        <label for="recipient-name" class="col-form-label">Correo electrónico:</label>
+                        <input type="text" class="form-control" >
+                    </div>
+                    <div class="mb-3">
+                        <label for="recipient-name" class="col-form-label">Número telefónico:</label>
+                        <input type="text" class="form-control" >
+                    </div>
+                    <div class="mb-3">
+                        <label for="message-text" class="col-form-label">Message:</label>
+                        <input type="label" class="form-control" >
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Send message</button>
+            </div>
+        </div>
+    </div>
 </div>
