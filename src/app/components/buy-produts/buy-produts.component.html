@@ -19,50 +19,51 @@
 
 </div>
 
-
+<!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="clientData" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Factura</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form>
+            <form [formGroup]="formReactive" (ngSubmit)="saveInvoice()">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Factura</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
                     <div class="mb-3">
                         <label for="recipient-name" class="col-form-label">Nombre:</label>
-                        <input type="text" class="form-control">
+                        <input type="text" class="form-control" formControlName="name">
                     </div>
                     <div class="mb-3">
                         <label for="recipient-name" class="col-form-label">Apellidos:</label>
-                        <input type="text" class="form-control" >
+                        <input type="text" class="form-control" formControlName="lastName">
                     </div>
                     <div class="mb-3">
                         <label for="recipient-name" class="col-form-label">Identificación:</label>
-                        <input type="text" class="form-control" >
+                        <input type="text" class="form-control" formControlName="identification">
                     </div>
                     <div class="mb-3">
                         <label for="recipient-name" class="col-form-label">Número telefónico:</label>
-                        <input type="text" class="form-control" >
+                        <input type="text" class="form-control" formControlName="phoneNumber">
                     </div>
                     <div class="mb-3">
                         <label for="recipient-name" class="col-form-label">Correo electrónico:</label>
-                        <input type="text" class="form-control" >
+                        <input type="text" class="form-control" formControlName="phoneNumber">
                     </div>
                     <div class="mb-3">
-                        <label for="recipient-name" class="col-form-label">Número telefónico:</label>
-                        <input type="text" class="form-control" >
+                        <label for="recipient-name" class="col-form-label">Dirección de entrega:</label>
+                        <input type="text" class="form-control" formControlName="deliveryAddress">
                     </div>
                     <div class="mb-3">
-                        <label for="message-text" class="col-form-label">Message:</label>
-                        <input type="label" class="form-control" >
+                        <label for="recipient-name" class="col-form-label">Fecha Entrega:</label>
+                        <input type="text" class="form-control" formControlName="deliveryDate">
                     </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Send message</button>
-            </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-cancel" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Realizar pedido</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>

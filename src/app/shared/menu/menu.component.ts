@@ -59,6 +59,8 @@ export class MenuComponent implements OnInit {
 
     if (gotProdutcs !== undefined && gotProdutcs !== "" && gotProdutcs !== null) {
       this.jsonProducts = JSON.parse(gotProdutcs ?? "");
+      console.log('objeto productos');
+      console.log(this.jsonProducts);
 
       // reduce: for each object we increment  the ´accumulator´ variable by ´cantidad´ value.
       // the 0 as second parameter means the we initilized the ´accumulator´ by 0.
