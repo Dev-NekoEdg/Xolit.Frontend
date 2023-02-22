@@ -18,7 +18,9 @@ export class BuyProdutsComponent implements OnInit {
   public listValidAmount: number[] = ConstantData.AmountProductAviable;
   public total: number = 0;
   public invoice: Invoice;
-  public formReactive: FormGroup
+  public formReactive: FormGroup;
+  public minDateInvoice:Date;
+  public maxDateInvoice:Date;
 
   constructor
     (
@@ -27,9 +29,18 @@ export class BuyProdutsComponent implements OnInit {
     ) {
     console.log('constructor');
     this.loadShoppingCart();
+    this.SetMinMaxDates();
     this.emptyInvoice();
     this.createFrom();
   }
+
+  SetMinMaxDates() {
+    this.minDateInvoice = new Date();
+    let maxDate = this.minDateInvoice;
+    maxDate = new Date(maxDate.setMonth(this.minDateInvoice.getMonth() + 1).toString());
+    this.maxDateInvoice = maxDate;
+  }
+  
   createFrom() {
     this.formReactive = this.builder.group({
       name: [''],

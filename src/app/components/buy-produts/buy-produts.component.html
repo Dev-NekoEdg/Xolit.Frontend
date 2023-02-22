@@ -55,7 +55,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="recipient-name" class="col-form-label">Fecha Entrega:</label>
-                        <input type="text" class="form-control" formControlName="deliveryDate">
+                        <input type="date" class="form-control" [min]="minDateInvoice" [max]="maxDateInvoice" formControlName="deliveryDate">
                     </div>
 
                 </div>
