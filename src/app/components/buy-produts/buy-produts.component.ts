@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Invoice } from 'src/app/interfaces/invoice';
 import { Product } from 'src/app/interfaces/product';
 import { ShoppingCart } from 'src/app/interfaces/shopping-cart';
@@ -19,37 +19,78 @@ export class BuyProdutsComponent implements OnInit {
   public total: number = 0;
   public invoice: Invoice;
   public formReactive: FormGroup;
-  public minDateInvoice:Date;
-  public maxDateInvoice:Date;
 
   constructor
     (
       private builder: FormBuilder,
       private shoppingCartService: ShoppingCartService
     ) {
-    console.log('constructor');
     this.loadShoppingCart();
-    this.SetMinMaxDates();
     this.emptyInvoice();
     this.createFrom();
   }
 
-  SetMinMaxDates() {
-    this.minDateInvoice = new Date();
-    let maxDate = this.minDateInvoice;
-    maxDate = new Date(maxDate.setMonth(this.minDateInvoice.getMonth() + 1).toString());
-    this.maxDateInvoice = maxDate;
+  ngOnInit(): void {
+    
+  }
+   
+  // Getters 
+  get getterValidName(){
+    return this.formReactive.get('name')?.invalid && this.formReactive.get('name')?.touched;
+  }
+
+  get getterValidLastName(){
+    return this.formReactive.get('lastName')?.invalid && this.formReactive.get('lastName')?.touched;
+  }
+
+  get getterValidIdentification(){
+    return this.formReactive.get('identification')?.invalid && this.formReactive.get('identification')?.touched;
+  }
+
+  get getterValidPhoneNumber(){
+    return this.formReactive.get('phoneNumber')?.invalid && this.formReactive.get('phoneNumber')?.touched;
   }
   
+  get getterValidDeliveryAddress(){
+    return this.formReactive.get('deliveryAddress')?.invalid && this.formReactive.get('deliveryAddress')?.touched;
+  }
+  
+  get getterValidEmailAddress(){
+    return this.formReactive.get('emailAddress')?.invalid && this.formReactive.get('emailAddress')?.touched;
+  }
+  
+  get getterValidDeliveryDate(){
+    return this.formReactive.get('deliveryDate')?.invalid && this.formReactive.get('deliveryDate')?.touched;
+  }
+
   createFrom() {
     this.formReactive = this.builder.group({
-      name: [''],
-      lastName: [''],
-      identification: [''],
-      phoneNumber: [''],
-      deliveryAddress: [''],
-      emailAddress: [''],
-      deliveryDate: [''],
+      name: ['', [Validators.required, Validators.minLength(4)]],
+      lastName: ['', [Validators.required, Validators.minLength(4)]],
+      identification: ['', 
+        [Validators.required, 
+          Validators.maxLength(10),
+          Validators.minLength(10),
+          Validators.pattern('/^[0-9]+$/')
+        ]
+      ],
+      phoneNumber: ['', [
+        Validators.required, 
+        Validators.maxLength(10),
+        Validators.minLength(10),
+        Validators.pattern('/^[0-9]+$/')
+      ]],
+      deliveryAddress: ['', [
+        Validators.required, 
+        Validators.minLength(5),
+        Validators.maxLength(50)
+      ]],
+      emailAddress: ['', [
+        Validators.required, 
+        Validators.minLength(5),
+        Validators.pattern('/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/')
+      ]],
+      deliveryDate: ['', [Validators.required, this.validationDeliveryDate]],
     });
   }
 
@@ -68,10 +109,6 @@ export class BuyProdutsComponent implements OnInit {
     }
   }
 
-  ngOnInit(): void {
-    console.log('OnInit');
-  }
-
   loadShoppingCart(): void {
     this.shoppingCartService.getShoppingCart$().subscribe(data => {
       // console.log({'infoSubs' : data})
@@ -82,8 +119,40 @@ export class BuyProdutsComponent implements OnInit {
   }
 
   saveInvoice(): void {
+    
+    console.log(this.formReactive);
+    if(this.formReactive.invalid){
 
+      return Object.values(this.formReactive.controls).forEach(control=> {
+        control.markAsTouched();
+      });
 
+    }
   }
 
+  validationDeliveryDate(control: FormControl): {[s:string]:boolean} {
+    const currentDate = new Date();
+    console.log({currentDate:currentDate});
+    const currentDateNumber : number = Date.now();
+    console.log({currentDateNumber:currentDateNumber});
+
+    const maxDateNumber : number = currentDate.setMonth(currentDate.getMonth() + 1);
+    console.log({maxDateNumber:maxDateNumber});
+    
+    console.log({controlValue:control.value});
+    const dateControl : number = Date.parse(control.value);
+    console.log({dateControl:dateControl});
+
+    if(dateControl == null || dateControl == undefined){
+      return { validDate : true }
+    }
+    console.log(dateControl > currentDateNumber);
+    console.log(dateControl < maxDateNumber);
+    if(dateControl > currentDateNumber && dateControl < maxDateNumber){
+      return { validDate : false }
+    }
+    else{
+      return { validDate : true }
+    }
+  }
 }

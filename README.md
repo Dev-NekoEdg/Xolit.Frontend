@@ -73,6 +73,11 @@ Para conversiones rápida se puede usar un más(+) antes de la variable. ` +vari
 
 *Math.round* : redondea el número según la parte decimal. Este retorna un entero.
 
+##### Getters
+
+Para validaciones se usan los getter y hacer las validaciones más dinamicas.
+
+
 
 ------
 # Xolit.Frontend

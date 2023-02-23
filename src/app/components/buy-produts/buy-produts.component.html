@@ -31,31 +31,66 @@
                 <div class="modal-body">
                     <div class="mb-3">
                         <label for="recipient-name" class="col-form-label">Nombre:</label>
-                        <input type="text" class="form-control" formControlName="name">
+                        <input type="text" class="form-control" 
+                        formControlName="name" 
+                        [class.is-invalid]="getterValidName" >
+                        <small *ngIf="getterValidName" class="text-danger">
+                            Nombre invalido. El nombre debe tener una longitug entre 4 y 50 caracteres.
+                        </small>
                     </div>
                     <div class="mb-3">
                         <label for="recipient-name" class="col-form-label">Apellidos:</label>
-                        <input type="text" class="form-control" formControlName="lastName">
+                        <input type="text" class="form-control" 
+                        formControlName="lastName"
+                        [class.is-invalid]="getterValidLastName" >
+                        <small *ngIf="getterValidLastName" class="text-danger">
+                            Apellidos invalido. El nombre debe tener una longitug entre 4 y 50 caracteres.
+                        </small>
                     </div>
                     <div class="mb-3">
                         <label for="recipient-name" class="col-form-label">Identificación:</label>
-                        <input type="text" class="form-control" formControlName="identification">
+                        <input type="text" class="form-control" 
+                        formControlName="identification"
+                        [class.is-invalid]="getterValidIdentification" >
+                        <small *ngIf="getterValidIdentification" class="text-danger">
+                            Identificación invalida. La Identificación debe tener entre 8 y 10 caracteres númericos.
+                        </small>
                     </div>
                     <div class="mb-3">
                         <label for="recipient-name" class="col-form-label">Número telefónico:</label>
-                        <input type="text" class="form-control" formControlName="phoneNumber">
+                        <input type="text" class="form-control" 
+                        formControlName="phoneNumber"
+                        [class.is-invalid]="getterValidPhoneNumber" >
+                        <small *ngIf="getterValidPhoneNumber" class="text-danger">
+                            Número telefónico invalido. El Número telefónico debe tener 10 caracteres númericos.
+                        </small>
                     </div>
                     <div class="mb-3">
                         <label for="recipient-name" class="col-form-label">Correo electrónico:</label>
-                        <input type="text" class="form-control" formControlName="phoneNumber">
+                        <input type="text" class="form-control" 
+                        formControlName="phoneNumber"
+                        [class.is-invalid]="getterValidEmailAddress" >
+                        <small *ngIf="getterValidEmailAddress" class="text-danger">
+                            Correo electrónico invalido. El Correo electrónico debe tener la estructura juanperez@dominio.com.
+                        </small>
                     </div>
                     <div class="mb-3">
                         <label for="recipient-name" class="col-form-label">Dirección de entrega:</label>
-                        <input type="text" class="form-control" formControlName="deliveryAddress">
+                        <input type="text" class="form-control" 
+                        formControlName="deliveryAddress"
+                        [class.is-invalid]="getterValidDeliveryAddress" >
+                        <small *ngIf="getterValidDeliveryAddress" class="text-danger">
+                            Dirección de entrega invalida. La Dirección de entrega debe tener más de 5 caracteres.
+                        </small>
                     </div>
                     <div class="mb-3">
                         <label for="recipient-name" class="col-form-label">Fecha Entrega:</label>
-                        <input type="date" class="form-control" [min]="minDateInvoice" [max]="maxDateInvoice" formControlName="deliveryDate">
+                        <input type="date" class="form-control" 
+                        formControlName="deliveryDate"
+                        [class.is-invalid]="getterValidDeliveryDate" >
+                        <small *ngIf="getterValidDeliveryDate" class="text-danger">
+                            Fecha de entrega invalida. La Fecha de entrega tiene que ser máximo un mes después de la compra.
+                        </small>
                     </div>
 
                 </div>
