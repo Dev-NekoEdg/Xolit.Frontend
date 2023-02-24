@@ -71,14 +71,14 @@ export class BuyProdutsComponent implements OnInit {
         [Validators.required, 
           Validators.maxLength(10),
           Validators.minLength(10),
-          Validators.pattern('/^[0-9]+$/')
+          Validators.pattern('^[0-9,$]*$')
         ]
       ],
       phoneNumber: ['', [
         Validators.required, 
         Validators.maxLength(10),
         Validators.minLength(10),
-        Validators.pattern('/^[0-9]+$/')
+        Validators.pattern('^[0-9,$]*$')
       ]],
       deliveryAddress: ['', [
         Validators.required, 
@@ -88,7 +88,7 @@ export class BuyProdutsComponent implements OnInit {
       emailAddress: ['', [
         Validators.required, 
         Validators.minLength(5),
-        Validators.pattern('/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/')
+        Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$')
       ]],
       deliveryDate: ['', [Validators.required, this.validationDeliveryDate]],
     });
@@ -130,26 +130,19 @@ export class BuyProdutsComponent implements OnInit {
     }
   }
 
-  validationDeliveryDate(control: FormControl): {[s:string]:boolean} {
-    const currentDate = new Date();
-    console.log({currentDate:currentDate});
+  validationDeliveryDate(control: FormControl): {[s:string]:boolean} | null {
+    const currentDate = new Date(); 
     const currentDateNumber : number = Date.now();
-    console.log({currentDateNumber:currentDateNumber});
 
     const maxDateNumber : number = currentDate.setMonth(currentDate.getMonth() + 1);
-    console.log({maxDateNumber:maxDateNumber});
-    
-    console.log({controlValue:control.value});
     const dateControl : number = Date.parse(control.value);
-    console.log({dateControl:dateControl});
 
     if(dateControl == null || dateControl == undefined){
-      return { validDate : true }
+      return { validDate : true };
     }
-    console.log(dateControl > currentDateNumber);
-    console.log(dateControl < maxDateNumber);
     if(dateControl > currentDateNumber && dateControl < maxDateNumber){
-      return { validDate : false }
+      // return { validDate : true };
+      return null;
     }
     else{
       return { validDate : true }

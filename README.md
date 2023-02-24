@@ -76,7 +76,19 @@ Para conversiones rápida se puede usar un más(+) antes de la variable. ` +vari
 ##### Getters
 
 Para validaciones se usan los getter y hacer las validaciones más dinamicas.
+Se coloca una `get` y en el return el boolean para hacer las validaciones.
 
+para hacer validaciones personalizadas no hay que devolver nada, siempr es en null 
+```
+```typescript
+validationDeliveryDate(control: FormControl): {[s:string]:boolean} | null {
+if(control.value === 'TextoNoValido'){
+  return {invalid: true};
+}
+
+return null;
+}
+```
 
 
 ------
