@@ -1,4 +1,4 @@
-import { Product } from "./product";
+import { InvoiceProducts } from "./invoice-products";
 
 export interface Invoice {
     givenNames: string;
@@ -11,5 +11,5 @@ export interface Invoice {
     saleDate: Date;
     total: number;
     
-    products: Product[];
+    products: InvoiceProducts[];
 }
