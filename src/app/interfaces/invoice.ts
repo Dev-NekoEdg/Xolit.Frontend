@@ -2,7 +2,7 @@ import { InvoiceProducts } from "./invoice-products";
 
 export interface Invoice {
     givenNames: string;
-    surName: string;
+    surNames: string;
     identification: string;
     phoneNumber: string;
     deliveryAddress:string;

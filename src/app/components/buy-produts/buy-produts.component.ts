@@ -102,7 +102,7 @@ export class BuyProdutsComponent implements OnInit {
   emptyInvoice() {
     this.invoice = {
       givenNames: "",
-      surName: "",
+      surNames: "",
       identification: "",
       phoneNumber: "",
       deliveryAddress: "",
@@ -117,7 +117,7 @@ export class BuyProdutsComponent implements OnInit {
   private loadInvoiceModel() {
     this.invoice = {
       givenNames: this.getValueFromForm('name'),
-      surName: this.getValueFromForm('lastName'),
+      surNames: this.getValueFromForm('lastName'),
       identification: this.getValueFromForm('identification'),
       phoneNumber: this.getValueFromForm('phoneNumber'),
       deliveryAddress: this.getValueFromForm('deliveryAddress'),
@@ -156,18 +156,27 @@ export class BuyProdutsComponent implements OnInit {
 
   saveInvoice(): void {
 
-    console.log(this.formReactive);
+    // console.log(this.formReactive);
     if (this.formReactive.invalid) {
 
       return Object.values(this.formReactive.controls).forEach(control => {
         control.markAsTouched();
       });
-
     }
     this.loadInvoiceModel();
 
-    console.log({ invoice: this.invoice });
-    // this.invoiceService.saveInvoice(this.invoice);
+    // console.log({ invoice: this.invoice });
+    var result = this.invoiceService.saveInvoice(this.invoice)
+    .subscribe(res=>{
+      console.log({respuesta: res});
+      if(res.code === 200)
+      {
+        alert('ok');
+      }
+      else{
+        alert('fallo');
+      }
+    });
   }
 
   validationDeliveryDate(control: FormControl): { [s: string]: boolean } | null {
