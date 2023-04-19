@@ -29,7 +29,7 @@ export class BuyProdutsComponent implements OnInit {
       private invoiceService: InvoiceService
     ) {
     this.loadShoppingCart();
-    this.emptyInvoice();
+    // this.emptyInvoice();
     this.createFrom();
   }
 
@@ -70,32 +70,32 @@ export class BuyProdutsComponent implements OnInit {
 
   createFrom() {
     this.formReactive = this.builder.group({
-      name: ['', [Validators.required, Validators.minLength(4)]],
-      lastName: ['', [Validators.required, Validators.minLength(4)]],
-      identification: ['',
+      name: ['pruebas', [Validators.required, Validators.minLength(4)]],
+      lastName: ['pruebas', [Validators.required, Validators.minLength(4)]],
+      identification: ['1015223311',
         [Validators.required,
         Validators.maxLength(10),
         Validators.minLength(10),
         Validators.pattern('^[0-9,$]*$')
         ]
       ],
-      phoneNumber: ['', [
+      phoneNumber: ['3001234567', [
         Validators.required,
         Validators.maxLength(10),
         Validators.minLength(10),
         Validators.pattern('^[0-9,$]*$')
       ]],
-      deliveryAddress: ['', [
+      deliveryAddress: ['calle falsa no. 123', [
         Validators.required,
         Validators.minLength(5),
         Validators.maxLength(50)
       ]],
-      emailAddress: ['', [
+      emailAddress: ['pruebas@pruebas.com', [
         Validators.required,
         Validators.minLength(5),
         Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$')
       ]],
-      deliveryDate: ['', [Validators.required, this.validationDeliveryDate]],
+      deliveryDate: ['2023/04/27', [Validators.required, this.validationDeliveryDate]],
     });
   }
 
@@ -164,19 +164,28 @@ export class BuyProdutsComponent implements OnInit {
       });
     }
     this.loadInvoiceModel();
-
     // console.log({ invoice: this.invoice });
     var result = this.invoiceService.saveInvoice(this.invoice)
-    .subscribe(res=>{
-      console.log({respuesta: res});
-      if(res.code === 200)
-      {
-        alert('ok');
-      }
-      else{
-        alert('fallo');
-      }
-    });
+      .subscribe(res => {
+        console.log({ respuesta: res });
+        if (res.code === 200) {
+          alert('ok');
+        }
+        else {
+          alert('fallo');
+        }
+      },
+        err => {
+          console.log({ error: err });
+          // message: "Http failure response for http://localhost:5158/v1/api/invoice: 400 Bad Request"
+          // name: "HttpErrorResponse"
+          // ok: false
+          // status: 400
+          // statusText: "Bad Request"
+          // url: "http://localhost:5158/v1/api/invoice"
+
+          alert('fallo: ' + err.message);
+        });
   }
 
   validationDeliveryDate(control: FormControl): { [s: string]: boolean } | null {
