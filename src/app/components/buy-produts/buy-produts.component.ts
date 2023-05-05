@@ -177,6 +177,7 @@ export class BuyProdutsComponent implements OnInit {
       },
         err => {
           console.log({ error: err });
+          // exception properties:
           // message: "Http failure response for http://localhost:5158/v1/api/invoice: 400 Bad Request"
           // name: "HttpErrorResponse"
           // ok: false
