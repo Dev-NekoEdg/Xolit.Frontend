@@ -12,6 +12,7 @@ import { TestData } from './services/testData';
 import { ConstantData } from './services/ConstantData';
 import { BuyProdutsComponent } from './components/buy-produts/buy-produts.component';
 import { RowProductOnCartComponent } from './components/row-product-on-cart/row-product-on-cart.component';
+import { ResponsesComponent } from './shared/responses/responses.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { RowProductOnCartComponent } from './components/row-product-on-cart/row-
     HomeComponent,
     ProductsComponent,
     BuyProdutsComponent,
-    RowProductOnCartComponent
+    RowProductOnCartComponent,
+    ResponsesComponent
   ],
   imports: [
     BrowserModule,

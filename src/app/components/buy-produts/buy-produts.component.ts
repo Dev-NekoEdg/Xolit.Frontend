@@ -169,7 +169,11 @@ export class BuyProdutsComponent implements OnInit {
       .subscribe(res => {
         console.log({ respuesta: res });
         if (res.code === 200) {
-          alert('ok');
+
+          // limpiar shoippingcart
+          // limpiar formularios 
+          // retornar al componente de los productos
+
         }
         else {
           alert('fallo');
@@ -186,6 +190,8 @@ export class BuyProdutsComponent implements OnInit {
           // url: "http://localhost:5158/v1/api/invoice"
 
           alert('fallo: ' + err.message);
+
+          
         });
   }
 
