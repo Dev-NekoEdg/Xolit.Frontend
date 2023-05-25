@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Alert } from 'src/app/interfaces/alert';
 import { Invoice } from 'src/app/interfaces/invoice';
 import { InvoiceProducts } from 'src/app/interfaces/invoice-products';
 import { Product } from 'src/app/interfaces/product';
@@ -7,6 +8,9 @@ import { ShoppingCart } from 'src/app/interfaces/shopping-cart';
 import { ConstantData } from 'src/app/services/ConstantData';
 import { InvoiceService } from 'src/app/services/invoice.service';
 import { ShoppingCartService } from 'src/app/services/shopping-cart.service';
+
+//import * as $ from 'jquery';
+declare var $ : any;
 
 @Component({
   selector: 'app-buy-produts',
@@ -21,6 +25,8 @@ export class BuyProdutsComponent implements OnInit {
   public total: number = 0;
   public invoice: Invoice;
   public formReactive: FormGroup;
+
+  public alertVerification: Alert = {  IsActive: false, Title: '', Message: ''};
 
   constructor
     (
@@ -189,7 +195,13 @@ export class BuyProdutsComponent implements OnInit {
           // statusText: "Bad Request"
           // url: "http://localhost:5158/v1/api/invoice"
 
-          alert('fallo: ' + err.message);
+          // alert('fallo: ' + err.message);
+          $('#exampleModal').modal('hide');
+          //$('').modal('show');
+          $('.#modalAlert').alert()
+          this.alertVerification.IsActive = true;
+          this.alertVerification.Title = "ERROR!"
+          this.alertVerification.Message = err.message;
 
           
         });
